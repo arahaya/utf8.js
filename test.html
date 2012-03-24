@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>utf8.js test</title>
+<meta charset="utf-8">
+<script type="text/javascript" src="utf8.js"></script>
+<script type="text/javascript">
+function trace() {
+    try {
+        console.log.apply(console, arguments);
+    } catch (e) {}
+    
+    try {
+        document.body.innerHTML += Array.prototype.join.call(arguments, ' ') + "<br>\n";
+    } catch (e) {}
+}
+
+function test(name, testcase) {
+    trace(name, testcase() ? 'OK' : 'NG');
+}
+
+onload = function () {
+    test('test 1 byte characters(abcdefghij)', function () {
+        return utf8.bytesToString(utf8.stringToBytes('abcdefghij')) === 'abcdefghij';
+    });
+    
+    test('test 2 byte characters(πρςστυφχψω)', function () {
+        return utf8.bytesToString(utf8.stringToBytes('πρςστυφχψω')) === 'πρςστυφχψω';
+    });
+    
+    test('test 3 byte characters(あいうえおアイウエオ)', function () {
+        return utf8.bytesToString(utf8.stringToBytes('あいうえおアイウエオ')) === 'あいうえおアイウエオ';
+    });
+    
+    test('test 4 byte characters(𠀋𡈽𡌛𡑮𡢽𠮟𡚴𡸴𣇄𣗄)', function () {
+        return utf8.bytesToString(utf8.stringToBytes('𠀋𡈽𡌛𡑮𡢽𠮟𡚴𡸴𣇄𣗄')) === '𠀋𡈽𡌛𡑮𡢽𠮟𡚴𡸴𣇄𣗄';
+    });
+};
+</script>
+</head>
+<body></body>
+</html>
