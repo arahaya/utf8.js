@@ -36,7 +36,7 @@ var utf8 = (function () {
         high = ((charCode - surrogateBase) >> 10) + highSurrogateMin,
         low  = (charCode & 0x3ff) + lowSurrogateMin;
         
-        return String.fromCharCode(high) + String.fromCharCode(low);
+        return String.fromCharCode(high, low);
     }
     
     /**
